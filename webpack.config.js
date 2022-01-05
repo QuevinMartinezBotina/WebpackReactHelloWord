@@ -7,25 +7,24 @@ const {
     CleanWebpackPlugin
 } = require('clean-webpack-plugin');
 
-
 module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
-        publicPath: "./",
+        publicPath: "/",
     },
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
-            '@components': path.resolve(__dirname, './src/components'),
-            '@styles': path.resolve(__dirname, './src/styles')
+            '@components': path.resolve(__dirname, 'src/components/'),
+            '@styles': path.resolve(__dirname, 'src/styles/')
         }
     },
     mode: 'production',
     module: {
         rules: [{
-                test: /\.js$|jsx/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
@@ -38,9 +37,13 @@ module.exports = {
                 }]
             },
             {
-                test: /\.s[ac]ss$/i,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-            },
+                test: /\.s[ac]ss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
+            }
         ]
     },
     plugins: [
